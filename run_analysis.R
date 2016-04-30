@@ -1,5 +1,5 @@
 # Create a directory in which to store the downloaded and processed data
-data.dir = path.expand("~/data/school/2015/courera-getdata-project/data")
+data.dir = path.expand("C:/Users/HP X2 W100/Documents/UCI HAR Dataset")
 dir.create(data.dir, recursive=T)
 setwd(data.dir)
 
