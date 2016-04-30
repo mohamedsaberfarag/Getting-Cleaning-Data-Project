@@ -1,28 +1,75 @@
-# Getting-Cleaning-Data-Project
-Instructions
+coursera-getdata-project
+Course Project for Coursera Data Science Getting And Cleaning Data class.
 
-The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set.
-Review criterialess 
-The submitted data set is tidy.
-The Github repo contains the required scripts.
-GitHub contains a code book that modifies and updates the available codebooks with the data to indicate all the variables and summaries calculated, along with units, and any other relevant information.
-The README that explains the analysis files is clear and understandable.
-The work submitted for this project is the work of the student who submitted it.
-Getting and Cleaning Data Course Projectless 
-The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set. The goal is to prepare tidy data that can be used for later analysis. You will be graded by your peers on a series of yes/no questions related to the project. You will be required to submit: 1) a tidy data set as described below, 2) a link to a Github repository with your script for performing the analysis, and 3) a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. You should also include a README.md in the repo with your scripts. This repo explains how all of the scripts work and how they are connected.
+This README seeks to accomplish two goals:
 
-One of the most exciting areas in all of data science right now is wearable computing - see for example this article . Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
+explain how the run_analysis.R script works.
+facilitate evaluation of the Course Project.
+Explanation of the run_analysis.R Script
 
-http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
-
-Here are the data for the project:
-
-https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
-
-You should create one R script called run_analysis.R that does the following.
+The run_analysis.R script aims to accomplish the following goals:
 
 Merges the training and the test sets to create one data set.
 Extracts only the measurements on the mean and standard deviation for each measurement.
 Uses descriptive activity names to name the activities in the data set
 Appropriately labels the data set with descriptive variable names.
 From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+Please see the run_analysis.R script for a detailed description of the implementation of each step used to accomplish the goals. Here is a high level description of the steps in the script used to accomplish each goal.
+
+To accomplish goal 1, the run_analysis.R script performs the following steps:
+
+Creates a "data" directory in which to download the raw data and save the tidy data
+Downloads and extract the raw data from the internet
+Reads in the X_test.txt, y_test.txt, and subject_test.txt files into data frames and contatenate the columns into a single data frame.
+Reads in the train data also.
+Concatenates the rows of the test and train data.
+To accomplish goal 2, the run_analysis.R script performs the following steps:
+
+Reads the feature labels from features.txt.
+Filter the feature labels to only those containing 'mean' or 'std' in the name (excluding those containing 'angle', which are angle measurements, not means or standard deviations.
+Create the corresponding column names (e.g. "V1", "V2") for the filtered feature names
+Select the columns from the data set that match the selected features.
+To accomplish goal 3, the run_analysis.R script performs the following steps:
+
+Read in the activity labels and corresponding numeric codes from activity_labels.txt.
+Transform the numeric activity column into a factor column using the numbers and labels read in from activity_labels.txt
+To accomplish goal 4, the run_analysis.R script performs the following steps:
+
+Use the setnames function of the data.tables library to change the column names of each "V1", "V2", etc., column to the corresponding label previously read in from features.txt.
+To accomplish goal 5, the run_analysis.R script performs the following steps:
+
+melt the data using the "subject" and "activity" columns as ids and all the descriptive column names from goal 4 as the measure variables.
+Use dcast to cast the melted data frame, summarizing each measure variable by the measurements in each subject and activity group.
+The new data frame was written to a file, "HAR-subject-activity-mean.txt" using the command:
+
+write.table(mean.data, file="HAR-subject-activity-mean.txt", row.name=FALSE)
+It can be read using the command:
+
+read.table("HAR-subject-activity-mean.txt", header=TRUE)
+Evaluation Phase Questions and Statements (from https://class.coursera.org/getdata-010/human_grading/view/courses/973497/assessments/3/submissions):
+
+Has the student submitted a tidy data set? Either a wide or a long form of the data is acceptable if it meets the tidy data principles of week 1 (Each variable you measure should be in one column, Each different observation of that variable should be in a different row).
+
+In a tidy data set:
+
+Each variable should be in one column
+Each measurement should be in one row
+There should be one table for each kind of observation, e.g. observations of people, observations of meals, observations of time windows.
+In the uploaded file, each column corresponds to a single variable. Each row corresponds to the measurement of a specific subject-activity combination. The table itself corresponds to observations of subjects performing activities.
+
+Did the student submit a Github repo with the required scripts?
+
+The repository ####### contains the following:
+
+run_analysis.R script that download and processes the raw data into a tidy data set.
+README.md (this file), which describes the run_analysis.R file.
+CodeBook.md, which describes the variables of the tidy data set.
+Was code book submitted to GitHub that modifies and updates the codebooks available to you with the data to indicate all the variables and summaries you calculated, along with units, and any other relevant information?
+
+Please see CodeBook.md in the submitted repository.
+
+I was able to follow the README in the directory that explained what the analysis files did.
+
+As far as you can determine, does it appear that the work submitted for this project is the work of the student who submitted it?
+
+Please use the space below to provide constructive feedback to the student who submitted the work. Point out the submission's strengths as well as areas in need of improvement. You may also use this space to explain your grading decisions.
