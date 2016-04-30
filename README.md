@@ -59,7 +59,7 @@ In the uploaded file, each column corresponds to a single variable. Each row cor
 
 Did the student submit a Github repo with the required scripts?
 
-The repository ####### contains the following:
+The repository https://github.com/mohamedsaberfarag/Getting-Cleaning-Data-Project contains the following:
 
 run_analysis.R script that download and processes the raw data into a tidy data set.
 README.md (this file), which describes the run_analysis.R file.
